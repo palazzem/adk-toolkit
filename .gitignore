@@ -1,0 +1,29 @@
+# Android
+gen/
+build/
+ 
+# Gradle
+.gradle/
+local.properties
+ 
+# Old Android
+bin/
+ 
+# Idea
+*.iws
+*.iml
+*.ipr
+.idea
+out
+ 
+# Eclipse
+.project
+.classpath
+.settings
+ 
+# OSX
+.DS_Store
+ 
+# Generic
+*~
+.swp
