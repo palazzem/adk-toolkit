@@ -23,7 +23,7 @@ Declare in your manifest that your application will use an USB accessory::
 
     <manifest ...>
         <uses-feature android:name="android.hardware.usb.accessory" android:required="true"/>
-    <!-- ... -->
+        <!-- ... -->
 
 Add in your Activity ADK intent filter declaration::
 
@@ -88,7 +88,7 @@ Change log
 Roadmap
 -------
 
-* Better AsyncTask which uses StringBuilder to publishProgress of aa String object as result
+* Better AsyncTask which uses StringBuilder to publishProgress of a String object as result
 * Simple implementation of a Service
 
 Contribution guidelines
