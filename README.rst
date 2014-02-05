@@ -19,13 +19,13 @@ Usage
 AndroidManifest.xml
 ~~~~~~~~~~~~~~~~~~~
 
-Declare in your manifest that your application will use an USB accessory::
+Declare in your manifest that your application will use an USB accessory:: xml
 
     <manifest ...>
         <uses-feature android:name="android.hardware.usb.accessory" android:required="true"/>
         <!-- ... -->
 
-Add in your Activity ADK intent filter declaration::
+Add in your Activity ADK intent filter declaration:: xml
 
     <activity ...>
         <!-- ... -->
@@ -44,7 +44,7 @@ Java code
 ~~~~~~~~~
 
 To use this toolkit simply declare and AdkManager and register a new ``BroadcastReceiver`` and
-``IntentFilter`` as follows::
+``IntentFilter`` as follows:: java
 
     private AdkManager mAdkManager;
     // ...
@@ -57,7 +57,7 @@ ADK when a ``UsbManager.ACTION_USB_ACCESSORY_DETACHED`` is caught.
 Send and read serial text
 -------------------------
 
-It's really easy::
+It's really easy:: java
 
     adkManager.sendText("Hello world!");
     String response = adkManager.readText();
