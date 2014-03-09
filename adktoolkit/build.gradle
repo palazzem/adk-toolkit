@@ -23,13 +23,6 @@ android {
 
 dependencies {}
 
-// Required for AAR publishing
-configurations {
-    archives {
-        extendsFrom configurations.default
-    }
-}
-
 // Upload AAR according to
 uploadArchives {
     configuration = configurations.archives
