@@ -137,4 +137,20 @@ public class AdkManager implements IAdkManager {
     public BroadcastReceiver getUsbReceiver() {
         return mUsbReceiver;
     }
+
+    public FileInputStream getFileInputStream() {
+        return mFileInputStream;
+    }
+
+    public void setFileInputStream(FileInputStream fileInputStream) {
+        this.mFileInputStream = fileInputStream;
+    }
+
+    public FileOutputStream getFileOutputStream() {
+        return mFileOutputStream;
+    }
+
+    public void setFileOutputStream(FileOutputStream fileOutputStream) {
+        this.mFileOutputStream = fileOutputStream;
+    }
 }
