@@ -2,7 +2,7 @@ language: java
 jdk: oraclejdk7
 env:
   matrix:
-    - ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 before_install:
   # Install base Android SDK
   - sudo apt-get update -qq
@@ -14,11 +14,11 @@ before_install:
 
   # Install required components.
   # For a full list, run `android list sdk -a --extended`
-  # Note that sysimg-17 downloads only ARM, because only the first license query is accepted.
+  # Note that sysimg-19 downloads only ARM, because only the first license query is accepted.
   - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --all --filter build-tools-19.0.0 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-17 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter sysimg-17 --no-ui --force > /dev/null
+  - echo yes | android update sdk --all --filter build-tools-19.0.3 --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter android-19 --no-ui --force > /dev/null
+  - echo yes | android update sdk --filter sysimg-19 --no-ui --force > /dev/null
   - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
   - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
 
