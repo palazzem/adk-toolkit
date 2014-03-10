@@ -4,7 +4,7 @@ Android ADK Toolkit
 
 **DISCLAIMER**
 
-This toolkit aims to help beginners to be up and running with ADK 2012 without any difficulties.
+This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
 If you have any ideas to improve this toolkit, go to ``contribution`` section.
 
 ADK toolkit exposes an ``AdkManager`` to manage ``UsbManager`` and ``UsbAccessory``. In this way
@@ -15,6 +15,15 @@ you should read `ADK official documentation`_.
 
 Usage
 -----
+
+Gradle dependency
+~~~~~~~~~~~~~~~~~
+
+This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``:
+
+    dependencies {
+        compile 'me.palazzetti:adktoolkit:0.1.0'
+    }
 
 AndroidManifest.xml
 ~~~~~~~~~~~~~~~~~~~
@@ -42,7 +51,17 @@ Add in your Activity ADK intent filter declaration:
             android:resource="@xml/usb_accessory_filter"/>
     </activity>
 
-Done!
+You need to create your accessory descriptor defined in the last code block (``res/xml/usb_accessory_filter.xml``).
+You can use this template as an example:
+
+.. code-block:: xml
+
+    <resources>
+        <usb-accessory
+            version="0.1.0"
+            model="External-Droid"
+            manufacturer="Example, Inc."/>
+    </resources>
 
 Java code
 ~~~~~~~~~
@@ -70,8 +89,6 @@ It's really easy:
     adkManager.sendText("Hello world!");
     String response = adkManager.readText();
 
-Done!
-
 Reading a buffered response
 ---------------------------
 
@@ -91,13 +108,13 @@ Change log
 * ADK fast constructor
 * Simple default implementation of Broadcast receiver and IntentFilter
 * Writing and reading features available
-* Simple AsyncTask to return read bytes
+* Simple AsyncTask support
 
 Roadmap
 -------
 
 * Better AsyncTask which uses StringBuilder to publishProgress of a String object as result
-* Simple implementation of a Service
+* Service implementation
 
 Contribution guidelines
 -----------------------
