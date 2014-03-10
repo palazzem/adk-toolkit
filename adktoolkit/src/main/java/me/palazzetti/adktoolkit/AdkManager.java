@@ -58,8 +58,7 @@ public class AdkManager implements IAdkManager {
         };
     }
 
-    @Override
-    public void openAccessory(UsbAccessory usbAccessory) {
+    protected void openAccessory(UsbAccessory usbAccessory) {
         mParcelFileDescriptor = mUsbManager.openAccessory(usbAccessory);
         if (mParcelFileDescriptor != null) {
             mUsbAccessory = usbAccessory;
@@ -69,8 +68,7 @@ public class AdkManager implements IAdkManager {
         }
     }
 
-    @Override
-    public void closeAccessory() {
+    protected void closeAccessory() {
         if (mParcelFileDescriptor != null) {
             try {
                 mParcelFileDescriptor.close();
