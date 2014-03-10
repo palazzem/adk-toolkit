@@ -1,4 +1,4 @@
-package me.palazzetti.adktoolkit.test;
+package me.palazzetti.adktoolkit;
 
 import android.app.Activity;
 

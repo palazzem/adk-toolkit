@@ -1,4 +1,4 @@
-package me.palazzetti.adktoolkit.test;
+package me.palazzetti.adktoolkit;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,8 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import static org.mockito.Mockito.*;
-
-import me.palazzetti.adktoolkit.AdkManager;
 
 public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     Activity mockActivity;
