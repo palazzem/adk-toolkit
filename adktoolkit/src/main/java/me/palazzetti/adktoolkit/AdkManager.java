@@ -63,8 +63,11 @@ public class AdkManager implements IAdkManager {
         if (mParcelFileDescriptor != null) {
             mUsbAccessory = usbAccessory;
             FileDescriptor fileDescriptor = mParcelFileDescriptor.getFileDescriptor();
-            mFileInputStream = new FileInputStream(fileDescriptor);
-            mFileOutputStream = new FileOutputStream(fileDescriptor);
+
+            if (fileDescriptor != null) {
+                mFileInputStream = new FileInputStream(fileDescriptor);
+                mFileOutputStream = new FileOutputStream(fileDescriptor);
+            }
         }
     }
 
@@ -105,12 +108,11 @@ public class AdkManager implements IAdkManager {
     @Override
     public void sendText(String text) {
         byte[] buffer = text.getBytes();
-        if (mFileOutputStream != null) {
-            try {
-                mFileOutputStream.write(buffer);
-            } catch (IOException e) {
-                Log.e(LOG_TAG, e.getMessage());
-            }
+
+        try {
+            mFileOutputStream.write(buffer);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
         }
     }
 
@@ -123,7 +125,7 @@ public class AdkManager implements IAdkManager {
     public void resumeAdk() {
         if (mFileInputStream == null || mFileOutputStream == null) {
             UsbAccessory[] usbAccessoryList = mUsbManager.getAccessoryList();
-            if (usbAccessoryList != null) {
+            if (usbAccessoryList != null && usbAccessoryList.length > 0) {
                 openAccessory(usbAccessoryList[0]);
             }
         }
