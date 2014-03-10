@@ -19,7 +19,7 @@ Usage
 Gradle dependency
 ~~~~~~~~~~~~~~~~~
 
-This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``:
+This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``::
 
     dependencies {
         compile 'me.palazzetti:adktoolkit:0.1.0'
@@ -124,12 +124,11 @@ Available soon.
 Example projects
 ----------------
 
-* `UDOO light builb`_
 * `Android ADK rover`_
+* `UDOO light bulb`_
 
-.. _UDOO light builb: https://github.com/palazzem/udoo-adk-lightbulb
 .. _Android adk rover: https://github.com/palazzem/android-udoo-rover
-
+.. _UDOO light bulb: https://github.com/palazzem/udoo-adk-lightbulb
 
 License
 -------
