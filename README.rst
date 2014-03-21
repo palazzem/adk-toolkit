@@ -102,6 +102,18 @@ To reduce complexity an abstract ``AdkReceiver`` is available and you can extend
 Change log
 ----------
 
+0.2.0 [Not released]
+~~~~~~~~~~~~~~~~~~~~
+
+* ``FileInputStream`` and ``FileOutputStream`` are ``protected`` so they can be mocked easily during testing
+* Testing with `Mockito`_
+
+**Bugfixes**
+
+* Better input/output stream management to avoid NullPointerException on Accessory loading
+
+.. _Mockito: https://github.com/mockito/mockito
+
 0.1.0 [2014-02-05]
 ~~~~~~~~~~~~~~~~~~
 
