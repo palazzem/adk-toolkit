@@ -85,7 +85,7 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
-    public String readText() {
+    public String readSerial() {
         byte[] buffer = new byte[255];
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -106,7 +106,7 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
-    public void sendText(String text) {
+    public void writeSerial(String text) {
         byte[] buffer = text.getBytes();
 
         try {

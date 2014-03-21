@@ -12,7 +12,7 @@ public abstract class AdkReceiver extends AsyncTask<AdkManager, String, Void> {
         AdkManager adkManager = params[0];
 
         while (adkManager.serialAvailable()) {
-            publishProgress(adkManager.readText());
+            publishProgress(adkManager.readSerial());
         }
         return null;
     }

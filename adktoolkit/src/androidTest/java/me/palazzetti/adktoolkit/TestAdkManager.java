@@ -74,13 +74,13 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
 
     @SmallTest
     public void testAdkManagerWrite() throws Exception {
-        adkManager.sendText("It works!");
+        adkManager.writeSerial("It works!");
     }
 
     @SmallTest
     public void testAdkManagerRead() throws Exception {
-        adkManager.sendText("0");
-        String readValue = adkManager.readText();
+        adkManager.writeSerial("0");
+        String readValue = adkManager.readSerial();
 
         assertEquals("0", readValue);
     }

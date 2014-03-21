@@ -112,6 +112,10 @@ Change log
 
 * Better input/output stream management to avoid NullPointerException on Accessory loading
 
+**Backwards incompatible changes in 0.2.0**
+
+* Some class/method names are misleading so readText/sendText become readSerial/writeSerial
+
 .. _Mockito: https://github.com/mockito/mockito
 
 0.1.0 [2014-02-05]
