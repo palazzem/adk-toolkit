@@ -1,8 +1,10 @@
 package me.palazzetti.adktoolkit;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.ParcelFileDescriptor;
@@ -70,6 +72,14 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     @SmallTest
     public void testAdkManagerInit() throws Exception {
         assertNotNull(adkManager);
+        assertEquals(adkManager.getDetachedFilter() instanceof IntentFilter, true);
+        assertEquals(adkManager.getUsbReceiver() instanceof BroadcastReceiver, true);
+    }
+
+    @SmallTest
+    public void testUsbAccessoryConnection() throws Exception {
+        // NOTE: this test is required to be shure that AdkManger has a valid UsbManager mock
+        assertEquals(adkManager.getUsbManager().getAccessoryList().length, 1);
     }
 
     @SmallTest

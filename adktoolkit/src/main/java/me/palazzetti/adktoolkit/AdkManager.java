@@ -138,11 +138,18 @@ public class AdkManager implements IAdkManager {
         return mUsbReceiver;
     }
 
+    // Protected methods used by tests
+    // -------------------------------
+
     protected void setFileInputStream(FileInputStream fileInputStream) {
         this.mFileInputStream = fileInputStream;
     }
 
     protected void setFileOutputStream(FileOutputStream fileOutputStream) {
         this.mFileOutputStream = fileOutputStream;
+    }
+
+    protected UsbManager getUsbManager() {
+        return mUsbManager;
     }
 }
