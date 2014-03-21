@@ -88,10 +88,18 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     }
 
     @SmallTest
-    public void testAdkManagerRead() throws Exception {
+    public void testAdkManagerReadChar() throws Exception {
         adkManager.writeSerial("0");
         String readValue = adkManager.readSerial();
 
         assertEquals("0", readValue);
+    }
+
+    @SmallTest
+    public void testAdkManagerReadString() throws Exception {
+        adkManager.writeSerial("Hello world!");
+        String readValue = adkManager.readSerial();
+
+        assertEquals("Hello world!", readValue);
     }
 }
