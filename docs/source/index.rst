@@ -3,20 +3,42 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Android ADK Toolkit's documentation!
+Android ADK Toolkit: startup without headaches!
 ===============================================
 
-Contents:
+This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
+ADK toolkit exposes an ``AdkManager`` to manage ``UsbManager`` and ``UsbAccessory``. In this way
+you don't need to fully understand some background concept about how ADK works because you can
+simply access your ADK accessories with a ``readSerial()`` and ``writeSerial()`` methods.
+
+Easy!
+
+.. _ADK official documentation: http://developer.android.com/tools/adk/adk2.html
+
+ADK Toolkit
+-----------
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
+    overview
+    usage
 
+Tutorials
+---------
 
-Indices and tables
-==================
+.. toctree::
+    :maxdepth: 2
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    serialcom
 
+Project Info
+------------
+
+.. toctree::
+    :maxdepth: 2
+
+    contributing
+    authors
+    changelog
+    migrations
