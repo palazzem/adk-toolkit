@@ -117,12 +117,12 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
-    public void closeAdk() {
+    public void close() {
         closeAccessory();
     }
 
     @Override
-    public void resumeAdk() {
+    public void open() {
         if (mFileInputStream == null || mFileOutputStream == null) {
             UsbAccessory[] usbAccessoryList = mUsbManager.getAccessoryList();
             if (usbAccessoryList != null && usbAccessoryList.length > 0) {

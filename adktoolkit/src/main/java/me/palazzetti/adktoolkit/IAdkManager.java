@@ -9,6 +9,6 @@ public interface IAdkManager {
     void writeSerial(String text);
 
     // Activity related interfaces
-    void closeAdk();
-    void resumeAdk();
+    void close();
+    void open();
 }

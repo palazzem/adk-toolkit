@@ -114,7 +114,7 @@ Change log
 
 **Backwards incompatible changes in 0.2.0**
 
-* Some class/method names are misleading so readText/sendText become readSerial/writeSerial
+* Some class/method names are misleading so readText/sendText become readSerial/writeSerial and closeAdk/resumeAdk become close/open
 * ``AdkReceiver`` has been removed because the actual implementation of read/write can handle multiple char
 
 .. _Mockito: https://github.com/mockito/mockito
