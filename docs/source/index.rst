@@ -23,20 +23,13 @@ ADK Toolkit
 
     overview
     usage
-
-Tutorials
----------
-
-.. toctree::
-    :maxdepth: 2
-
-    serialcom
+    arduino
 
 Project Info
 ------------
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     contributing
     authors
