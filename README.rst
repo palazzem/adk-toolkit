@@ -2,8 +2,6 @@
 Android ADK Toolkit
 ===================
 
-**DISCLAIMER**
-
 This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
 If you have any ideas to improve this toolkit, go to ``contribution`` section.
 
@@ -12,6 +10,20 @@ you don't need to fully understand some background concept about how ADK works b
 you should read `ADK official documentation`_.
 
 .. _ADK official documentation: http://developer.android.com/tools/adk/adk2.html
+
+Support
+-------
+
+If you need support please send a message to the `Android ADK Toolkit group`_.
+
+.. _Android ADK Toolkit group: https://groups.google.com/forum/#!forum/android-adk-toolkit/
+
+Contribution guidelines
+-----------------------
+
+If you want to contribute, just `follow the guidelines`_.
+
+.. _follow the guidelines: http://android-adk-toolkit.readthedocs.org/en/latest/contributing.html
 
 Usage
 -----
@@ -22,37 +34,13 @@ Gradle dependency
 This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``::
 
     dependencies {
-        compile 'me.palazzetti:adktoolkit:0.1.0'
+        compile 'me.palazzetti:adktoolkit:0.2.0'
     }
 
 AndroidManifest.xml
 ~~~~~~~~~~~~~~~~~~~
 
-Declare in your manifest that your application will use an USB accessory:
-
-.. code-block:: xml
-
-    <manifest ...>
-        <uses-feature android:name="android.hardware.usb.accessory" android:required="true"/>
-        <!-- ... -->
-
-Add in your Activity ADK intent filter declaration:
-
-.. code-block:: xml
-
-    <activity ...>
-        <!-- ... -->
-
-        <!-- Adk Intent Filter -->
-        <intent-filter>
-            <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
-        </intent-filter>
-        <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
-            android:resource="@xml/usb_accessory_filter"/>
-    </activity>
-
-You need to create your accessory descriptor defined in the last code block (``res/xml/usb_accessory_filter.xml``).
-You can use this template as an example:
+Create ``res/xml/usb_accessory_filter.xml`` configuration file to identify your accessory:
 
 .. code-block:: xml
 
@@ -63,41 +51,57 @@ You can use this template as an example:
             manufacturer="Example, Inc."/>
     </resources>
 
+Declare in your manifest that your application requires USB accessory support:
+
+.. code-block:: xml
+
+    <manifest>
+        <uses-feature android:name="android.hardware.usb.accessory" android:required="true"/>
+
+        <!-- ... -->
+    </manifest>
+
+Then add in your activity block this ADK intent filter:
+
+.. code-block:: xml
+
+    <manifest>
+        <!-- ... -->
+
+        <!-- Adk Intent Filter -->
+        <intent-filter>
+            <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+        </intent-filter>
+
+        <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+            android:resource="@xml/usb_accessory_filter"/>
+    </manifest>
+
 Java code
 ~~~~~~~~~
 
-To use this toolkit simply declare and AdkManager and register a new ``BroadcastReceiver`` and
-``IntentFilter`` as follows:
+To use this toolkit initialize an AdkManager as follows:
 
 .. code-block:: java
 
     private AdkManager mAdkManager;
     // ...
     mAdkManager = new AdkManager((UsbManager) getSystemService(Context.USB_SERVICE));
-    registerReceiver(mAdkManager.getUsbReceiver(), mAdkManager.getDetachedFilter());
 
-``getUsbReceiver()`` and ``getDetachedFilter()`` simply offer a default implementation to close
-ADK when a ``UsbManager.ACTION_USB_ACCESSORY_DETACHED`` is caught.
-
-Send and read serial text
--------------------------
-
-It's really easy:
+and then use these methods to read/write to your accessory:
 
 .. code-block:: java
 
     adkManager.sendText("Hello world!");
     String response = adkManager.readText();
 
-Reading a buffered response
----------------------------
+Documentation
+-------------
 
-``readText()`` will only ready a single serial byte. If you want to get more bytes to compose a String object,
-you should create a new ``Thread`` which read serial data until bytes are available. However you should do
-it in Android way so you need to create a ``Service`` or ``AsyncTask`` to manage continuous read.
+This README just provides basic information to show quickly how this library works. You can check
+the `full documentation`_ on *Read the Docs*.
 
-To reduce complexity an abstract ``AdkReceiver`` is available and you can extend it without overriding
-``doInBackground`` method. Implemented background task simply reads from serial and ``publishProgress`` of read byte.
+.. _full documentation: http://android-adk-toolkit.readthedocs.org/en/latest/
 
 Change log
 ----------
@@ -126,17 +130,6 @@ Change log
 * Simple default implementation of Broadcast receiver and IntentFilter
 * Writing and reading features available
 * Simple AsyncTask support
-
-Roadmap
--------
-
-* Better AsyncTask which uses StringBuilder to publishProgress of a String object as result
-* Service implementation
-
-Contribution guidelines
------------------------
-
-Available soon.
 
 Example projects
 ----------------
