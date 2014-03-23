@@ -1,3 +1,7 @@
+=======
+Authors
+=======
+
 Main developer
 --------------
 
