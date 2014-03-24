@@ -106,8 +106,8 @@ the `full documentation`_ on *Read the Docs*.
 Change log
 ----------
 
-0.2.0 [Not released]
-~~~~~~~~~~~~~~~~~~~~
+0.2.0 [2014-03-24]
+~~~~~~~~~~~~~~~~~~
 
 * ``FileInputStream`` and ``FileOutputStream`` are ``protected`` so they can be mocked easily during testing
 * Testing with `Mockito`_

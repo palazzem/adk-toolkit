@@ -2,8 +2,8 @@
 Changelog
 =========
 
-0.2.0 [Not released]
-~~~~~~~~~~~~~~~~~~~~
+0.2.0 [2014-03-24]
+------------------
 
 * ``FileInputStream`` and ``FileOutputStream`` are ``protected`` so they can be mocked easily during testing
 * Testing with `Mockito`_
@@ -20,7 +20,7 @@ Changelog
 .. _Mockito: https://github.com/mockito/mockito
 
 0.1.0 [2014-02-05]
-~~~~~~~~~~~~~~~~~~
+------------------
 
 * ADK fast constructor
 * Simple default implementation of Broadcast receiver and IntentFilter
