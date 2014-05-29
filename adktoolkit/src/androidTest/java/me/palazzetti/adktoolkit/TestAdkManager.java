@@ -57,7 +57,7 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
         doReturn(mockFileDescriptor).when(spyUsbManager).openAccessory(mockAccessory);
 
         adkManager = new AdkManager(spyUsbManager);
-        adkManager.resumeAdk();
+        adkManager.open();
 
         // Mock Input stream with in memory write
         adkManager.setFileInputStream(mockFileInputStream);
@@ -66,7 +66,7 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
 
     @Override
     protected void tearDown() throws Exception {
-        adkManager.closeAdk();
+        adkManager.close();
     }
 
     @SmallTest
