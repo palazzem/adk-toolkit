@@ -27,7 +27,7 @@ dependencies {
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
 }
 
-// Upload AAR according to
+// Upload AAR according to Sonatype rules
 uploadArchives {
     configuration = configurations.archives
     repositories.mavenDeployer {

@@ -78,7 +78,7 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
 
     @SmallTest
     public void testUsbAccessoryConnection() throws Exception {
-        // NOTE: this test is required to be shure that AdkManger has a valid UsbManager mock
+        // NOTE: this test is required to be sure that AdkManger has a valid UsbManager mock
         assertEquals(adkManager.getUsbManager().getAccessoryList().length, 1);
     }
 
