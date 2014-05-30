@@ -101,6 +101,16 @@ task androidSourcesJar(type: Jar) {
     from android.sourceSets.main.allSource
 }
 
+// Create a JAR library for retro compatibility with Eclipse IDE
+task assembleJar(type: Copy, dependsOn: ['clean', 'assembleRelease']) {
+    assembleRelease.mustRunAfter clean
+
+    from('build/bundles/release/')
+    into('build/libs/')
+    include('classes.jar')
+    rename ('classes.jar', POM_ARTIFACT_ID + '-' + VERSION_NAME + '.jar')
+}
+
 artifacts {
     archives androidSourcesJar
     archives androidJavadocsJar
