@@ -40,6 +40,24 @@ Maven
         <type>aar</type>
     </dependency>
 
+Eclipse users
+~~~~~~~~~~~~~
+
+All published libraries in MavenCentral are in AAR format.
+Unfortunately, `Eclipse seems to have a bug`_ and AAR import will not work as expected. However
+there is an assemble task to produce a JAR library. To create the library simply launch in your
+root folder:
+
+.. code-block:: bash
+
+    $ ./gradlew assembleJar
+
+This will create a JAR library inside ``adktoolkit/build/libs/`` folder. Pre-assembled libraries
+are available in `GitHub release section`_.
+
+.. _Eclipse seems to have a bug: https://code.google.com/p/android/issues/detail?id=59183
+.. _GitHub release section: https://github.com/palazzem/adk-toolkit/releases
+
 Android Manifest
 ----------------
 
