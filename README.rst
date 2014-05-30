@@ -37,6 +37,10 @@ This library is available on ``MavenCentral`` and you can add it to your ``build
         compile 'me.palazzetti:adktoolkit:0.2.0'
     }
 
+**Note**: full documentation has more usage options. Check `Usage section`_ for more details.
+
+.. _Usage section: http://android-adk-toolkit.readthedocs.org/en/latest/usage.html
+
 AndroidManifest.xml
 ~~~~~~~~~~~~~~~~~~~
 
