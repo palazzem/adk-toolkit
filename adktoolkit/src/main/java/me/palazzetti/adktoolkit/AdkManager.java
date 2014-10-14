@@ -85,7 +85,13 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
+    @Deprecated
     public String readSerial() {
+        return readString();
+    }
+
+    @Override
+    public String readString() {
         byte[] buffer = new byte[255];
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -99,6 +105,19 @@ public class AdkManager implements IAdkManager {
         }
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public byte readByte() {
+        byte[] buffer = new byte[1];
+
+        try {
+            mByteRead = mFileInputStream.read(buffer, 0, buffer.length);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+
+        return buffer[0];
     }
 
     public boolean serialAvailable() {

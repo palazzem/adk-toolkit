@@ -6,6 +6,9 @@ package me.palazzetti.adktoolkit;
 
 public interface IAdkManager {
     String readSerial();
+    String readString();
+    byte readByte();
+
     void writeSerial(String text);
     void writeSerial(int value);
 
