@@ -69,16 +69,21 @@ Then add in your activity block this ADK intent filter:
 
 .. code-block:: xml
 
-    <manifest>
-        <!-- ... -->
+    <manifest ...>
+        <application ...>
+            <activity ...>
 
-        <!-- Adk Intent Filter -->
-        <intent-filter>
-            <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
-        </intent-filter>
+                <!-- ... -->
 
-        <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
-            android:resource="@xml/usb_accessory_filter"/>
+                <!-- Adk Intent Filter -->
+                <intent-filter>
+                    <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+                </intent-filter>
+
+                <meta-data android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+                    android:resource="@xml/usb_accessory_filter"/>
+            </activity>
+        </application>
     </manifest>
 
 Java code
