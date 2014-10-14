@@ -117,6 +117,15 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
+    public void writeSerial(int value) {
+        try {
+            mFileOutputStream.write(value);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+    }
+
+    @Override
     public void close() {
         closeAccessory();
     }
