@@ -2,6 +2,19 @@
 Changelog
 =========
 
+0.2.1 [2014-10-14]
+------------------
+
+* ``writeSerial`` now accept both ``byte`` and ``String`` values
+* ``readSerial`` is now **deprecated** and default to ``readString`` method
+* Added ``readString`` and ``readByte`` so you can read ``String`` and ``byte`` values from the serial port
+
+**Bugfixes**
+
+* Fixed documentation: `#9`_
+
+.. _#9: https://github.com/palazzem/adk-toolkit/issues/9
+
 0.2.0 [2014-03-24]
 ------------------
 
