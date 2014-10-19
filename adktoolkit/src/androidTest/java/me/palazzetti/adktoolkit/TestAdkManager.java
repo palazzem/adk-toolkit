@@ -83,17 +83,17 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     }
 
     @SmallTest
-    public void testAdkManagerWriteString() throws Exception {
+    public void testWriteString() throws Exception {
         adkManager.writeSerial("It works!");
     }
 
     @SmallTest
-    public void testAdkManagerWriteByte() throws Exception {
+    public void testWriteByte() throws Exception {
         adkManager.writeSerial(42);
     }
 
     @SmallTest
-    public void testAdkManagerReadSerial() throws Exception {
+    public void testReadSerial() throws Exception {
         adkManager.writeSerial("Hello world!");
         String readValue = adkManager.readSerial();
 
@@ -101,7 +101,7 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     }
 
     @SmallTest
-    public void testAdkManagerReadString() throws Exception {
+    public void testReadString() throws Exception {
         adkManager.writeSerial("Hello world!");
         String readValue = adkManager.readString();
 
@@ -109,10 +109,25 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
     }
 
     @SmallTest
-    public void testAdkManagerReadByte() throws Exception {
+    public void testReadByte() throws Exception {
         adkManager.writeSerial(42);
         byte readValue = adkManager.readByte();
 
+        assertEquals(42, readValue);
+    }
+
+    @SmallTest
+    public void testContinuousReadsByte() throws Exception {
+        adkManager.writeSerial(42);
+        byte readValue = adkManager.readByte();
+
+        assertEquals(42, readValue);
+
+        readValue = adkManager.readByte();
+        assertEquals(0, readValue);
+
+        adkManager.writeSerial(42);
+        readValue = adkManager.readByte();
         assertEquals(42, readValue);
     }
 }
