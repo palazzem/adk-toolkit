@@ -2,6 +2,9 @@
 Android ADK Toolkit
 ===================
 
+.. image:: https://img.shields.io/badge/Android%20Arsenal-Android%20ADK%20Toolkit-brightgreen.svg?style=flat
+    :target: https://android-arsenal.com/details/1/1266
+
 This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
 If you have any ideas to improve this toolkit, go to ``contribution`` section.
 
