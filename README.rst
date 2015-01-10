@@ -144,7 +144,7 @@ Change log
 * Issue `#13`_: refactoring ``AdkManager`` to expose a common interface for ``read()`` and ``write()``
 * Issue `#16`_: ``AdkManager`` constructor now accept an ``Activity`` context to initialize the accessory
 
-**Backwards incompatible changes in 0.2.0**
+**Backwards incompatible changes from 0.2.x**
 
 * removed ``writeSerial(String text)``
 * removed ``writeSerial(int value)``
