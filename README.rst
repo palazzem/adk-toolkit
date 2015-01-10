@@ -26,7 +26,7 @@ Contribution guidelines
 
 If you want to contribute, just `follow the guidelines`_.
 
-.. _follow the guidelines: http://android-adk-toolkit.readthedocs.org/en/latest/contributing.html
+.. _follow the guidelines: http://docs.adktoolkit.org/en/latest/contributing.html
 
 Usage
 -----
@@ -37,7 +37,7 @@ Gradle dependency
 This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``::
 
     dependencies {
-        compile 'me.palazzetti:adktoolkit:0.2.0'
+        compile 'me.palazzetti:adktoolkit:0.3.0'
     }
 
 **Note**: full documentation has more usage options. Check `Usage section`_ for more details.
@@ -92,20 +92,36 @@ Then add in your activity block this ADK intent filter:
 Java code
 ~~~~~~~~~
 
-To use this toolkit initialize an AdkManager as follows:
+To use this toolkit initialize an AdkManager in your ``Activity`` ``onCreate`` and then
+open your accessory in the ``onResume`` callback:
 
 .. code-block:: java
 
     private AdkManager mAdkManager;
-    // ...
-    mAdkManager = new AdkManager((UsbManager) getSystemService(Context.USB_SERVICE));
 
-and then use these methods to read/write to your accessory:
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // ...
+        mAdkManager = new AdkManager(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdkManager.open();
+    }
+
+You can use the below methods to access your accessory:
 
 .. code-block:: java
 
-    adkManager.sendText("Hello world!");
-    String response = adkManager.readText();
+    // Write
+    adkManager.write("Hello from Android!");
+
+    // Read
+    AdkMessage response = adkManager.read();
+    System.out.println(response.getString());
+    // Could outputs: "Hello from Arduino!"
 
 Documentation
 -------------
@@ -113,10 +129,29 @@ Documentation
 This README just provides basic information to show quickly how this library works. You can check
 the `full documentation`_ on *Read the Docs*.
 
-.. _full documentation: http://android-adk-toolkit.readthedocs.org/en/latest/
+.. _full documentation: http://docs.adktoolkit.org/
 
 Change log
 ----------
+
+0.3.0 [2015-01-10]
+~~~~~~~~~~~~~~~~~~
+
+**New features**
+
+* Updated to latest gradle version ``1.0.0``
+* Refactoring ``AdkManager`` to expose a common interface for read() and write()
+* ``read()`` returns an ``AdkMessage`` instance, which exposes the raw ``byte[]`` array
+ with some utility methods to get string, byte, int and float representations
+* ``AdkManager`` constructor now accept an ``Activity`` context to initialize the accessory
+
+**Backwards incompatible changes in 0.2.0**
+
+* removed ``writeSerial(String text)``
+* removed ``writeSerial(int value)``
+* removed ``readSerial()``
+* removed ``readString()``
+* removed ``readByte()``
 
 0.2.1 [2014-10-14]
 ~~~~~~~~~~~~~~~~~~
