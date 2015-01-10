@@ -15,8 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Allows to manager your ADK Usb Interface. It exposes
- * methods to close/open connected accessory and to read/write
+ * Allows to manage your ADK Usb Interface. It exposes
+ * methods to open/close connected accessories and to read/write
  * from/to it.
  */
 
