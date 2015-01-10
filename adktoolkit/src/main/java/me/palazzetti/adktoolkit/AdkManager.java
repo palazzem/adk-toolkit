@@ -13,6 +13,9 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+
+import me.palazzetti.adktoolkit.response.AdkMessage;
 
 /**
  * Allows to manage your ADK Usb Interface. It exposes
@@ -22,6 +25,7 @@ import java.io.IOException;
 
 public class AdkManager implements IAdkManager {
     private static final String LOG_TAG = "AdkManager";
+    private static final int BUFFER_SIZE = 255;
 
     private UsbManager mUsbManager;
     private UsbAccessory mUsbAccessory;
@@ -84,48 +88,41 @@ public class AdkManager implements IAdkManager {
         mUsbAccessory = null;
     }
 
-    @Override
-    @Deprecated
-    public String readSerial() {
-        return readString();
-    }
-
-    @Override
-    public String readString() {
-        byte[] buffer = new byte[255];
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try {
-            mByteRead = mFileInputStream.read(buffer, 0, buffer.length);
-            for (int i = 0; i < mByteRead; i++) {
-                stringBuilder.append((char) buffer[i]);
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, e.getMessage());
-        }
-
-        return stringBuilder.toString();
-    }
-
-    @Override
-    public byte readByte() {
-        byte[] buffer = new byte[1];
-
-        try {
-            mByteRead = mFileInputStream.read(buffer, 0, buffer.length);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, e.getMessage());
-        }
-
-        return buffer[0];
-    }
-
     public boolean serialAvailable() {
         return mByteRead >= 0;
     }
 
     @Override
-    public void writeSerial(String text) {
+    public void write(byte[] values) {
+        try {
+            mFileOutputStream.write(values);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    public void write(byte value) {
+        write((int) value);
+    }
+
+    @Override
+    public void write(int value) {
+        try {
+            mFileOutputStream.write(value);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    public void write(float value) {
+        String bufferOfString = String.valueOf(value);
+        write(bufferOfString);
+    }
+
+    @Override
+    public void write(String text) {
         byte[] buffer = text.getBytes();
 
         try {
@@ -136,12 +133,26 @@ public class AdkManager implements IAdkManager {
     }
 
     @Override
-    public void writeSerial(int value) {
+    public AdkMessage read() {
+        byte[] buffer = new byte[BUFFER_SIZE];
+        byte[] response;
+        AdkMessage message;
+
         try {
-            mFileOutputStream.write(value);
+            // Read from ADK
+            mByteRead = mFileInputStream.read(buffer, 0, buffer.length);
+
+            // Create a new buffer that fits the exact number of read bytes
+            response = Arrays.copyOfRange(buffer, 0, mByteRead);
+
+            // Prepare a message instance
+            message = new AdkMessage(response);
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
+            message = null;
         }
+
+        return message;
     }
 
     @Override
