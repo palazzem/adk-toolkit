@@ -142,11 +142,15 @@ public class AdkManager implements IAdkManager {
             // Read from ADK
             mByteRead = mFileInputStream.read(buffer, 0, buffer.length);
 
-            // Create a new buffer that fits the exact number of read bytes
-            response = Arrays.copyOfRange(buffer, 0, mByteRead);
+            if (mByteRead != -1) {
+                // Create a new buffer that fits the exact number of read bytes
+                response = Arrays.copyOfRange(buffer, 0, mByteRead);
 
-            // Prepare a message instance
-            message = new AdkMessage(response);
+                // Prepare a message instance
+                message = new AdkMessage(response);
+            } else {
+                message = new AdkMessage(null);
+            }
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
             message = null;
