@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import me.palazzetti.adktoolkit.response.AdkMessage;
+
 import static org.mockito.Mockito.*;
 
 public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
@@ -84,50 +86,42 @@ public class TestAdkManager extends ActivityUnitTestCase<MockActivity> {
 
     @SmallTest
     public void testWriteString() throws Exception {
-        adkManager.writeSerial("It works!");
+        adkManager.write("It works!");
     }
 
     @SmallTest
     public void testWriteByte() throws Exception {
-        adkManager.writeSerial(42);
-    }
-
-    @SmallTest
-    public void testReadSerial() throws Exception {
-        adkManager.writeSerial("Hello world!");
-        String readValue = adkManager.readSerial();
-
-        assertEquals("Hello world!", readValue);
+        adkManager.write(42);
     }
 
     @SmallTest
     public void testReadString() throws Exception {
-        adkManager.writeSerial("Hello world!");
-        String readValue = adkManager.readString();
+        adkManager.write("Hello world!");
+        AdkMessage message = adkManager.read();
 
-        assertEquals("Hello world!", readValue);
+        assertEquals("Hello world!", message.getString());
     }
 
     @SmallTest
     public void testReadByte() throws Exception {
-        adkManager.writeSerial(42);
-        byte readValue = adkManager.readByte();
+        adkManager.write((byte) 42);
+        AdkMessage message = adkManager.read();
 
-        assertEquals(42, readValue);
+        assertEquals(42, message.getByte().byteValue());
     }
 
     @SmallTest
     public void testContinuousReadsByte() throws Exception {
-        adkManager.writeSerial(42);
-        byte readValue = adkManager.readByte();
+        adkManager.write(42);
+        AdkMessage message = adkManager.read();
 
-        assertEquals(42, readValue);
+        assertEquals(42, message.getByte().byteValue());
 
-        readValue = adkManager.readByte();
-        assertEquals(0, readValue);
+        message = adkManager.read();
+        assertNull(message.getByte());
 
-        adkManager.writeSerial(42);
-        readValue = adkManager.readByte();
-        assertEquals(42, readValue);
+        adkManager.write(42);
+        message = adkManager.read();
+        assertEquals(42, message.getByte().byteValue());
     }
 }
