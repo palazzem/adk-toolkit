@@ -140,10 +140,9 @@ Change log
 **New features**
 
 * Updated to latest gradle version ``1.0.0``
-* Refactoring ``AdkManager`` to expose a common interface for read() and write()
-* ``read()`` returns an ``AdkMessage`` instance, which exposes the raw ``byte[]`` array
- with some utility methods to get string, byte, int and float representations
-* ``AdkManager`` constructor now accept an ``Activity`` context to initialize the accessory
+* Added ``AdkMessage`` class, which exposes the raw ``byte[]`` array with some utility methods to get string, byte, int and float representations
+* Issue `#13`_: refactoring ``AdkManager`` to expose a common interface for ``read()`` and ``write()``
+* Issue `#16`_: ``AdkManager`` constructor now accept an ``Activity`` context to initialize the accessory
 
 **Backwards incompatible changes in 0.2.0**
 
@@ -152,6 +151,9 @@ Change log
 * removed ``readSerial()``
 * removed ``readString()``
 * removed ``readByte()``
+
+.. _#13: https://github.com/palazzem/adk-toolkit/issues/13
+.. _#16: https://github.com/palazzem/adk-toolkit/issues/16
 
 0.2.1 [2014-10-14]
 ~~~~~~~~~~~~~~~~~~
