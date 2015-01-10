@@ -41,11 +41,24 @@ public class AdkManager implements IAdkManager {
     public AdkManager(UsbManager mUsbManager) {
         // Store Android UsbManager reference
         this.mUsbManager = mUsbManager;
+        attachFilters();
+        attachUsbReceiver();
+    }
 
+    public AdkManager(Context ctx) {
+        // Store Android UsbManager reference
+        this.mUsbManager = (UsbManager) ctx.getSystemService(Context.USB_SERVICE);
+        attachFilters();
+        attachUsbReceiver();
+    }
+
+    private void attachFilters() {
         // Filter for detached events
         mDetachedFilter = new IntentFilter();
         mDetachedFilter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
+    }
 
+    private void attachUsbReceiver() {
         // Broadcast Receiver
         mUsbReceiver = new BroadcastReceiver() {
             @Override
