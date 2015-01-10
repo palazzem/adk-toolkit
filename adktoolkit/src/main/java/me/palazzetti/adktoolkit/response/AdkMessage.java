@@ -22,7 +22,7 @@ public class AdkMessage {
     }
 
     public String getString() {
-        if (mString == null) {
+        if (mString == null && !isEmpty()) {
             StringBuilder stringBuilder = new StringBuilder();
 
             for (int i = 0; i < mReceivedBuffer.length; i++) {
@@ -40,7 +40,7 @@ public class AdkMessage {
     }
 
     public Byte getByte() {
-        if (mByte == null) {
+        if (mByte == null && !isEmpty()) {
             try {
                 mByte = mReceivedBuffer[0];
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -52,7 +52,7 @@ public class AdkMessage {
     }
 
     public Float getFloat() {
-        if (mFloat == null) {
+        if (mFloat == null && !isEmpty()) {
             try {
                 mFloat = Float.parseFloat(getString());
             } catch (NumberFormatException e) {
@@ -64,7 +64,7 @@ public class AdkMessage {
     }
 
     public Integer getInt() {
-        if (mInt == null) {
+        if (mInt == null && !isEmpty()) {
             try {
                 mInt = Integer.parseInt(getString());
             } catch (NumberFormatException e) {
@@ -73,5 +73,9 @@ public class AdkMessage {
         }
 
         return mInt;
+    }
+
+    public boolean isEmpty() {
+        return mReceivedBuffer == null;
     }
 }
