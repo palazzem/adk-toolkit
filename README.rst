@@ -218,6 +218,8 @@ Projects that use ADKToolkit
 .. _Mobile tanker: https://github.com/DMIAlumni/mobile-tanker
 .. _OpenCV: http://opencv.org/
 
+If you're interested to list your project here, feel free to submit a pull request.
+
 License
 -------
 
