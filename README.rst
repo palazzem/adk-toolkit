@@ -3,7 +3,7 @@ Android ADK Toolkit
 ===================
 
 .. image:: https://readthedocs.org/projects/android-adk-toolkit/badge/?version=latest
-    :target: https://readthedocs.org/projects/android-adk-toolkit/?badge=latest
+    :target: http://docs.adktoolkit.org/
     :alt: Documentation Status
 
 .. image:: https://img.shields.io/badge/Android%20Arsenal-Android%20ADK%20Toolkit-brightgreen.svg?style=flat
