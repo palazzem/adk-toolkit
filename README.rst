@@ -2,14 +2,18 @@
 Android ADK Toolkit
 ===================
 
-.. image:: https://api.bintray.com/packages/bintray/jcenter/me.palazzetti%3Aadktoolkit/images/download.svg
-    :target: https://bintray.com/bintray/jcenter/me.palazzetti%3Aadktoolkit/_latestVersion
+.. image:: https://readthedocs.org/projects/android-adk-toolkit/badge/?version=latest
+    :target: https://readthedocs.org/projects/android-adk-toolkit/?badge=latest
+    :alt: Documentation Status
 
 .. image:: https://img.shields.io/badge/Android%20Arsenal-Android%20ADK%20Toolkit-brightgreen.svg?style=flat
     :target: https://android-arsenal.com/details/1/1266
 
 .. image:: https://img.shields.io/badge/API-12%2B-brightgreen.svg?style=flat
     :target: https://android-arsenal.com/api?level=12
+
+.. image:: https://api.bintray.com/packages/bintray/jcenter/me.palazzetti%3Aadktoolkit/images/download.svg
+    :target: https://bintray.com/bintray/jcenter/me.palazzetti%3Aadktoolkit/_latestVersion
 
 This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
 If you have any ideas to improve this toolkit, go to ``contribution`` section.
