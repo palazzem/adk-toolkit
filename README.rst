@@ -9,8 +9,8 @@ This toolkit helps beginners to be up and running with ADK 2012 without difficul
 If you have any ideas to improve this toolkit, go to ``contribution`` section.
 
 ADK toolkit exposes an ``AdkManager`` to manage ``UsbManager`` and ``UsbAccessory``. In this way
-you don't need to fully understand some background concept about how ADK works but, as soon as possibile,
-you should read `ADK official documentation`_.
+you don't need to fully understand any background concepts about how ADK works. Anyhow don't forget
+to read the `ADK official documentation`_.
 
 .. _ADK official documentation: http://developer.android.com/tools/adk/adk2.html
 
@@ -31,18 +31,21 @@ If you want to contribute, just `follow the guidelines`_.
 Usage
 -----
 
+**Note**: full documentation has more usage options. Check `Usage section`_ for more details.
+
+.. _Usage section: http://android-adk-toolkit.readthedocs.org/en/latest/usage.html
+
 Gradle dependency
 ~~~~~~~~~~~~~~~~~
 
-This library is available on ``MavenCentral`` and you can add it to your ``build.gradle``::
+This library is available on ``MavenCentral`` and `JCenter`_ (which is now the default repository
+used in Android) so you can add this dependency directly in your ``build.gradle``::
 
     dependencies {
         compile 'me.palazzetti:adktoolkit:0.3.0'
     }
 
-**Note**: full documentation has more usage options. Check `Usage section`_ for more details.
-
-.. _Usage section: http://android-adk-toolkit.readthedocs.org/en/latest/usage.html
+.. _JCenter: https://bintray.com/bintray/jcenter
 
 AndroidManifest.xml
 ~~~~~~~~~~~~~~~~~~~
@@ -92,7 +95,7 @@ Then add in your activity block this ADK intent filter:
 Java code
 ~~~~~~~~~
 
-To use this toolkit initialize an AdkManager in your ``Activity`` ``onCreate`` and then
+To use this toolkit initialize an ``AdkManager`` in your ``Activity`` ``onCreate`` callback and then
 open your accessory in the ``onResume`` callback:
 
 .. code-block:: java
@@ -116,10 +119,10 @@ You can use the below methods to access your accessory:
 .. code-block:: java
 
     // Write
-    adkManager.write("Hello from Android!");
+    mAdkManager.write("Hello from Android!");
 
     // Read
-    AdkMessage response = adkManager.read();
+    AdkMessage response = mAdkManager.read();
     System.out.println(response.getString());
     // Could outputs: "Hello from Arduino!"
 
