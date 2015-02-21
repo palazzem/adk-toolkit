@@ -43,7 +43,7 @@ Usage
 
 **Note**: full documentation has more usage options. Check `Usage section`_ for more details.
 
-.. _Usage section: http://android-adk-toolkit.readthedocs.org/en/latest/usage.html
+.. _Usage section: http://docs.adktoolkit.org/en/latest/usage.html
 
 Gradle dependency
 ~~~~~~~~~~~~~~~~~
