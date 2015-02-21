@@ -206,14 +206,17 @@ Change log
 * Writing and reading features available
 * Simple AsyncTask support
 
-Example projects
-----------------
+Projects that use ADKToolkit
+----------------------------
 
 * `Android ADK rover`_
 * `UDOO light bulb`_
+* `Mobile tanker`_ an Android application powered by `OpenCV`_
 
 .. _Android adk rover: https://github.com/palazzem/android-udoo-rover
 .. _UDOO light bulb: https://github.com/palazzem/udoo-adk-lightbulb
+.. _Mobile tanker: https://github.com/DMIAlumni/mobile-tanker
+.. _OpenCV: http://opencv.org/
 
 License
 -------
