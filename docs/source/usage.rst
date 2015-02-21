@@ -2,22 +2,22 @@
 Usage
 =====
 
-ADK 2012 is the latest version you can use to develop amazing accessories for Android-powered
-devices. This library only works as a wrapper of all ADK features for your Android app. If you
-want to see how ADK 2012 works, follow `official documentation`_.
+ADK 2012 is the latest version that can be used during accessories development. This library works
+as a wrapper of ADK capabilities so your application development will be smoothest. If you
+want to see how ADK 2012 works, follow the `official documentation`_.
 
 .. note::
-    Even if this library is a wrapper and supports Android API level 10, I will only target API level
-    12 in this documentation as stated in `cutting down backward support`_ issue.
+    Even if ADK is supported since Android API level 10, I will only target API level 12 in this
+    library as stated in `cutting down backward support`_ issue.
 
 .. _official documentation: http://developer.android.com/tools/adk/adk2.html
 .. _cutting down backward support: https://github.com/palazzem/adk-toolkit/issues/2
 
-Install
--------
+Installing the library
+----------------------
 
-This library is available in MavenCentral repository and its deployment flow is based on SonaType
-Nexus repository. To use the library simply configure your Gradle or Maven dependencies as follows:
+This library is available in MavenCentral and JCenter repositories. Adding the library dependency
+is pretty easy and you can configure your Gradle or Maven dependency file as follows:
 
 Gradle
 ~~~~~~
@@ -25,7 +25,7 @@ Gradle
 .. code-block:: groovy
 
     dependencies {
-        compile 'me.palazzetti:adktoolkit:0.2.0'
+        compile 'me.palazzetti:adktoolkit:0.3.0'
     }
 
 Maven
@@ -36,30 +36,33 @@ Maven
     <dependency>
         <groupId>me.palazzetti</groupId>
         <artifactId>adktoolkit</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
         <type>aar</type>
     </dependency>
 
 Eclipse users
 ~~~~~~~~~~~~~
 
-All published libraries in MavenCentral are in AAR format.
-Unfortunately, `Eclipse seems to have a bug`_ and AAR import will not work as expected. However
-there is an assemble task to produce a JAR library. To create the library simply launch in your
-root folder:
+All published libraries in MavenCentral or JCenter are in AAR format. Unfortunately,
+`Eclipse seems to have a bug`_ and AAR import will not work as expected. I've created an assemble
+task in the gradle build script to produce a JAR library that you can easily import manually in
+your project. The pre-assembled libraries are available in the repository `release section`_.
 
-.. code-block:: bash
-
-    $ ./gradlew assembleJar
-
-This will create a JAR library inside ``adktoolkit/build/libs/`` folder. Pre-assembled libraries
-are available in `GitHub release section`_.
+.. note::
+    If you are using Eclipse with ADT, be aware that Android Studio is now the official IDE for
+    Android, so it's a good idea to migrate your projects to Android Studio. For help moving
+    projects, see `Migrating to Android Studio`_. Despite that, ADKToolkit library will continue
+    to support JAR library releases.
 
 .. _Eclipse seems to have a bug: https://code.google.com/p/android/issues/detail?id=59183
-.. _GitHub release section: https://github.com/palazzem/adk-toolkit/releases
+.. _release section: https://github.com/palazzem/adk-toolkit/releases
+.. _Migrating to Android Studio: http://developer.android.com/sdk/installing/migrate.html
+
+Configuring the Android application
+-----------------------------------
 
 Android Manifest
-----------------
+~~~~~~~~~~~~~~~~
 
 Create ``res/xml/usb_accessory_filter.xml`` configuration file to identify your accessory:
 
@@ -103,10 +106,11 @@ Then add in your activity block this ADK intent filter:
         </application>
     </manifest>
 
-Android code
-------------
+Starting the ADK listener
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To use this toolkit initialize the ``AdkManager`` in your Activity during ``onCreate()`` method:
+To use this library, initialize the ``AdkManager`` in your ``Activity`` ``onCreate()`` callback
+like you can see in the following snippet:
 
 .. code-block:: java
 
@@ -117,30 +121,29 @@ To use this toolkit initialize the ``AdkManager`` in your Activity during ``onCr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAdkManager = new AdkManager((UsbManager) getSystemService(Context.USB_SERVICE));
+        mAdkManager = new AdkManager(this);
     }
 
 If you need to register a ``BroadcastReceiver`` to catch ``UsbManager.ACTION_USB_ACCESSORY_DETACHED``
-action, you can use library default implementation as follows (always in your ``onCreate()`` method):
-
-.. code-block:: java
-
-    registerReceiver(mAdkManager.getUsbReceiver(), mAdkManager.getDetachedFilter());
-
-Starting and stopping ADK listener
-----------------------------------
-
-When you initialize an ``AdkManager``, it just create a connection object between your device and your
-accessory. You need to start/stop AOA communication when you open/close your activity. Add these calls
-in your ``onResume()`` and ``onPause()`` methods:
+action, you can use the library default implementations as follows:
 
 .. code-block:: java
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mAdkManager.close();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mAdkManager = new AdkManager(this);
+        registerReceiver(mAdkManager.getUsbReceiver(), mAdkManager.getDetachedFilter());
     }
+
+When you initialize an ``AdkManager``, it just create a connection object between your device and
+your accessory. You need to start/stop AOA communication when you open/close your activity. Add
+the following calls in your ``onResume()`` and ``onPause()`` callbacks to open and close ADK
+communication, when your Activity is resumed or paused:
+
+.. code-block:: java
 
     @Override
     protected void onResume() {
@@ -148,28 +151,71 @@ in your ``onResume()`` and ``onPause()`` methods:
         mAdkManager.open();
     }
 
-.. note::
-    If you need to leave the activity without stopping the communication, you can avoid ``mAdkManager.close()``.
-    However don't forget to close the communication with a widget or a button in your activity so
-    users can disable the accessory when they want. This avoid useless battery consumption.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdkManager.close();
+    }
 
-Write and read serial text
---------------------------
+.. warning::
+    Because of an `internal ADK bug`_ that is still not fixed, it's not possible to open the ADK
+    again when the channel has been closed. This means that if you need to use the ADK between
+    activities, you should not call the ``close()`` method otherwise the only way to open the
+    communication again is to restart your hardware accessory.
 
-As I write in my unittest, you can simply:
+.. _internal ADK bug: https://github.com/palazzem/adk-toolkit/issues/11
+
+Using the toolkit
+~~~~~~~~~~~~~~~~~
+
+The ADKToolkit library exposes an interface to write and read bytes in/from the internal ADK buffer.
+If you need to send some values to your accessory, you can use the following methods within your
+application code:
 
 .. code-block:: java
 
-    adkManager.writeSerial("Hello world!");
-    String readValue = adkManager.readSerial();
-    assertEquals("Hello world!", readValue);
-    // Not bad! :)
+    byte[] byteArray = {4, 2};
+    byte byteValue = 42;
+    int intValue = 42
+    float floatValue = 42.0f;
+    String stringValue = "Answer to The Ultimate Question of Life, the Universe, and Everything"
 
-``writeSerial()`` allows you to write a single char or a String object.
+    adkManager.write(byteArray);
+    adkManager.write(byteValue);
+    adkManager.write(intValue);
+    adkManager.write(floatValue);
+    adkManager.write(stringValue);
 
-``readSerial()`` read a single char or a String object until there are bytes to read in the buffer
+On the other hand if you need to read a value from your accessory (for instance, a sensor value),
+you can use the ``read()`` method that returns an ``AdkMessage`` instance. This class, wraps the
+returned ``byte[]`` array from the buffer and exposes an API to parse retrieved value. The following
+is an example how to read accessory data from your Android application:
+
+.. code-block:: java
+
+    AdkMessage response = mAdkManager.read();
+
+Then you can call the following methods according to sent data:
+
+* ``response.getBytes()``: returns the raw bytes array so you can manipulate it on your own
+* ``response.getString()``: returns a string applying a ``(char)`` typecasting for each byte
+* ``response.getByte()``: returns the first byte of the bytes array buffer
+* ``response.getFloat()``: expects that the content of the bytes array buffer is a string; it calls the ``getString()`` method and tries to parse the string in a float value
+* ``response.getInt()``: expects that the content of the bytes array buffer is a string; it calls the ``getString()`` method and tries to parse the string in an integer value
+* ``response.isEmpty()``: returns ``true`` if the received buffer is empty or not initialized
+
+If for any reasons the parsing causes an exceptions, it will be caught from the AdkResponse's
+methods and the returned value will be ``null``.
 
 .. note::
-    ``readSerial()`` could be a long-running task (ex: you want to continuously read data from a
-    thermal sensor). In this case, put ``readSerial()`` call inside a ``Service`` or an ``AsyncTask``
-    and don't run this in your UI main thread.
+    The ``read()`` method could be a long-running task, in particular if you want to read
+    continuously data from a your accessory. In this case, call the ``read()`` method outside your
+    main thread otherwise it will cause the `Application Not Responding (ANR)`_ error. A good approach
+    is to use an `IntentService`_, an `AsyncTask`_, or a `Runnable`_ implementation together
+    with an `ExecutorService`_.
+
+.. _Application Not Responding (ANR): http://developer.android.com/training/articles/perf-anr.html
+.. _IntentService: http://developer.android.com/reference/android/app/IntentService.html
+.. _AsyncTask: http://developer.android.com/reference/android/os/AsyncTask.html
+.. _Runnable: https://developer.android.com/training/multiple-threads/define-runnable.html
+.. _ExecutorService: http://developer.android.com/reference/java/util/concurrent/ExecutorService.html

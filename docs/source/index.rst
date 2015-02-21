@@ -1,17 +1,11 @@
-.. Android ADK Toolkit documentation master file, created by
-   sphinx-quickstart on Sat Mar 22 15:01:56 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Android ADK Toolkit: startup without headaches!
 ===============================================
 
-This toolkit helps beginners to be up and running with ADK 2012 without difficulties.
-ADK toolkit exposes an ``AdkManager`` to manage ``UsbManager`` and ``UsbAccessory``. In this way
-you don't need to fully understand some background concept about how ADK works because you can
-simply access your ADK accessories with a ``readSerial()`` and ``writeSerial()`` methods.
-
-Easy!
+This toolkit is a collections of utilities that helps beginners to be up and running with ADK 2012
+without difficulties. ADK toolkit exposes an ``AdkManager`` to manage ``UsbManager`` and
+``UsbAccessory``. In this way avoiding any complex understanding of how Android ADK works. If
+you want to create quickly your first accessory as fast as possible, this toolkit is a great getting
+started.
 
 .. _ADK official documentation: http://developer.android.com/tools/adk/adk2.html
 

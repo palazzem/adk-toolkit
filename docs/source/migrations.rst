@@ -2,6 +2,63 @@
 Migrate from previous versions
 ==============================
 
+Migrate from 0.2.x to 0.3.0
+---------------------------
+
+Improvement
+~~~~~~~~~~~
+
+The old initialization uses the following code:
+
+.. code-block:: java
+
+    private AdkManager mAdkManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mAdkManager = new AdkManager((UsbManager) getSystemService(Context.USB_SERVICE));
+    }
+
+Now you can also create the AdkManager instance passing the Activity ``Context`` like you see
+in the following code:
+
+.. code-block:: java
+
+    private AdkManager mAdkManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mAdkManager = new AdkManager(this);
+    }
+
+Incompatibility
+~~~~~~~~~~~~~~~
+
+The following methods have been deleted:
+
+* ``writeSerial(String text)``
+* ``writeSerial(int value)``
+* ``readSerial()``
+* ``readString()``
+* ``readByte()``
+
+For this reason you should rename in your project:
+
+* ``writeSerial()`` to ``write()``
+* ``readSerial()`` to ``read().getString()``
+* ``readString()`` to ``read().getString()``
+* ``readByte()`` to ``read().getByte()``
+
+.. note::
+    Remember that ``read()`` returns an ``AdkMessage`` instance and you may want to cache this
+    response in a variable.
+
 Migrate from 0.1.0 to 0.2.0
 ---------------------------
 

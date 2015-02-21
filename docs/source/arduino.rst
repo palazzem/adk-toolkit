@@ -2,7 +2,9 @@
 Arduino communication
 =====================
 
-Your Android app needs an Arduino sketch as a counterpart. Here you can find a basic template:
+Your Android application needs an Arduino sketch as a counterpart. Here you can find a basic
+template that shows how to initialize your **accessory descriptor** to let Android knows that
+an accessory is connected to the system:
 
 .. code-block:: c
 
@@ -25,34 +27,51 @@ Your Android app needs an Arduino sketch as a counterpart. Here you can find a b
     uint32_t readBytes = 0;
 
     void setup() {
-        Serial.begin(115200);
-        Serial.println("Ready to listen!");
-        delay(2000);
+        // Some setup operations
     }
 
-Arduino and Android Manifest
-----------------------------
+Arduino and the Android Manifest
+--------------------------------
 
-Accessory descriptor defines how your accessory identifies itself in your Android app. These values
-should be the same as ones in ``res/xml/usb_accessory_filter.xml`` file otherwise your accessory will not
-find a suitable app to communicate with:
+Accessory descriptor defines how your accessory identifies itself with the Android system. These
+values should be the same defined in the ``res/xml/usb_accessory_filter.xml`` file otherwise your
+accessory will not find a suitable application to communicate with:
 
 * ``versionNumer``
 * ``model``
 * ``manufacturer``
 
-You can use ``url`` variable to open an external link when any suitable application is found.
-There you can provide more information about how to configure your accessory.
-You can also target an apk or a Google Play Store URL where users can download and install your app.
+You can use ``url`` variable to open an external link when any application capable to manage
+this accessory is found. In this web page you can provide more information about how to configure
+your accessory.
 
-Write and read serial text
---------------------------
+.. note::
+    You can also target a ``.apk`` package or a Google Play Store URL where users can download
+    and install your app.
 
-You can use this snippet function to read text sent by your Android device:
+Interacting with Android
+------------------------
+
+When you're connecting your accessory to Android you can have the following scenarios:
+
+* You want to collect data from your accessory (maybe some sensors) and send them back to your
+Android application
+* You want to provide to users an interaction, using the Android user interface, and do some actions
+with accessory actuators
+
+Despite what is the scope of your accessory, the following are brief examples how you can read and
+write data from your Arduino sketch.
+
+Reading
+~~~~~~~
+
+Within your ``loop()`` function, add the following code to read data from the ADK buffer:
 
 .. code-block:: c
 
-    void readFromAdk() {
+    // readBytes, RCVSIZE and buffer are declared in the first snippet
+
+    void loop() {
         Usb.Task();
 
         if (adk.isReady()){
@@ -61,49 +80,52 @@ You can use this snippet function to read text sent by your Android device:
                 // Do something with buffer
             }
         }
+        // Don't forget a delay in your sketch :)
     }
 
-If you want to write something to your Android device, use this snippet:
+Writing
+~~~~~~~
+
+If you want to send data to your Android device, use the following snippet:
 
 .. code-block:: c
 
-    void writeToAdk(char textToSend[]) {
-        adk.write(sizeof(textToSend), (uint8_t*)textToSend);
-    }
-
-Then you can write text to Android device like this:
-
-.. code-block:: c
+    // buffer is already declared in the first snippet
 
     void loop() {
         Usb.Task();
 
         if (adk.isReady()){
-            writeToAdk("Hello world!");
-            delay(1000);
+            adk.write(sizeof(buffer), buffer);
         }
+        // Don't forget a delay in your sketch :)
     }
+
+Remember that if the accessory needs both the writing and the reading phase, it could be a good idea
+to use two different ``buffer`` objects; for this reason you may want to declare two ``uint8_t``
+buffers.
 
 Simple echo sketch
 ------------------
 
-You can use this sketch to create an echo accessory which resend to Android every received characters:
+You can use this sketch to create an echo accessory which sends received characters back to Android:
 
 .. code-block:: c
 
+    uint8_t readingBuffer[RCVSIZE];
+    uint8_t writingBuffer[RCVSIZE];
+
     void setup() {
-        Serial.begin(115200);
-        Serial.println("Ready to listen!");
-        delay(2000);
+        // Nothing to do with this sketch
     }
 
     void loop() {
         Usb.Task();
 
         if (adk.isReady()){
-            adk.read(&readBytes, RCVSIZE, buffer);
+            adk.read(&readBytes, RCVSIZE, readingBuffer);
             if (readBytes > 0){
-                adk.write(readBytes, buffer);
+                adk.write(readBytes, writingBuffer);
             }
         }
     }
